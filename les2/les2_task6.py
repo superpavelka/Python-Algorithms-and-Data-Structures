@@ -29,4 +29,5 @@ while True:
         try_ += 1
         if (try_ == 10):
             print('Закончились попытки!')
+            print(f'Загаданное число: {n}')
             break
