@@ -6,10 +6,11 @@ start_n = 32
 n = start_n
 str_out = ''
 c = 0
+print('Таблица ASCII с 32 по 127 символы включительно:')
 while True:
     s = chr(n)
     str_out += f'{n} -- {s}  '
-    c+=1
+    c += 1
     n += 9
     if n > 127:
         print(str_out)
@@ -18,4 +19,3 @@ while True:
         n = start_n
     if c == 96:
         break
-
