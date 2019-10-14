@@ -24,13 +24,19 @@ while True:
     company_map = ChainMap()
     for i in range(count):
         name = input('Введите название предприятия: ')
+        profit = 0
+        n = 1
         while True:
             try:
-                profit = int(input('Введите значение прибыли: '))
-            except:
+                profit += int(input(f'Введите значение прибыли за {n} квартал: '))
+                n+=1
+            except ValueError:
                 print('Ошибка ввода!')
                 continue
-            break
+            if n > 4:
+                print(f'Прибыль за год: {profit}')
+                print('*' * 50)
+                break
         company_map = company_map.new_child({'name': name, 'profit': profit})
     break
 
