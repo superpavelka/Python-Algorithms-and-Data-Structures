@@ -17,6 +17,7 @@
 задаче под запретом.
 Вспомните начальную школу и попробуйте написать сложение и умножение в столбик.
 '''
+from collections import deque
 
 
 def dec_to_hex(dec, list_of_numbers):
@@ -37,11 +38,12 @@ def dec_to_hex(dec, list_of_numbers):
 
 
 def hex_to_dec(hex, list_of_numbers):
-    hex.reverse()
+    hex_deq = deque(hex)
     dec = 0
-    for i, digit in enumerate(hex):
-        dec += list_of_numbers.index(digit) * (16 ** i)
-    hex.reverse()
+    i = 0;
+    while len(hex_deq):
+        dec += list_of_numbers.index(hex_deq.pop()) * (16 ** i)
+        i += 1
     return dec
 
 
