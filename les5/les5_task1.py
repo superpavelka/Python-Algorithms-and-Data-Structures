@@ -13,6 +13,7 @@
 '''
 from collections import ChainMap
 
+names = []
 # Заполняем словари
 # Для тестового ввода можно закомментировать этот блок
 while True:
@@ -23,7 +24,13 @@ while True:
         continue
     company_map = ChainMap()
     for i in range(count):
-        name = input('Введите название предприятия: ')
+        while True:
+            name = input('Введите название предприятия: ')
+            if len(names) == 0 or name not in names:
+                names.append(name)
+                break
+            else:
+                print('Такое имя уже есть!')
         profit = 0
         n = 1
         while True:
