@@ -17,45 +17,61 @@
 задаче под запретом.
 Вспомните начальную школу и попробуйте написать сложение и умножение в столбик.
 '''
-# num1 = list(input('Введите число: '))
-# num2 = list(input('Введите число: '))
-list_of_numbers = [str(i) for i in range(10)] + ['A', 'B', 'C', 'D', 'E', 'F']
 
+
+def dec_to_hex(dec, list_of_numbers):
+    hex = []
+    while True:
+        if dec >= 16:
+            rem = dec % 16
+            if rem > 9:
+                rem = list_of_numbers[rem]
+            hex.append(rem)
+            dec = dec // 16
+        elif dec != 0:
+            if dec > 9:
+                dec = list_of_numbers[dec]
+            hex.append(dec)
+            hex.reverse()
+            return hex
+
+
+def hex_to_dec(hex, list_of_numbers):
+    hex.reverse()
+    dec = 0
+    for i, digit in enumerate(hex):
+        dec += list_of_numbers.index(digit) * (16 ** i)
+    hex.reverse()
+    return dec
+
+
+list_of_numbers = [str(i) for i in range(10)] + ['A', 'B', 'C', 'D', 'E', 'F']
+result = []
 while True:
     try:
-        num1 = list(input('Введите число: ').upper())
-        num2 = list(input('Введите число: ').upper())
-        for i,digit in enumerate(num1):
+        num1 = list(input('Введите число 1: ').upper())
+        for i, digit in enumerate(num1):
             if digit not in list_of_numbers:
                 raise TypeError
-        for i,digit in enumerate(num2):
+        num2 = list(input('Введите число 2: ').upper())
+        for i, digit in enumerate(num2):
             if digit not in list_of_numbers:
                 raise TypeError
         break
     except TypeError:
         print('Ошибка ввода!')
+print('Число 1: ')
+print(num1)
+print('Число 2: ')
+print(num2)
 
-num1.reverse()
-num2.reverse()
-num1_dec = 0
-num2_dec = 0
-for i,digit in enumerate(num1):
-    num1_dec += list_of_numbers.index(digit) * (16**i)
-for i,digit in enumerate(num2):
-    num2_dec += list_of_numbers.index(digit) * (16**i)
+mul_dec = hex_to_dec(num1, list_of_numbers) * hex_to_dec(num2, list_of_numbers)
+sum_dec = hex_to_dec(num1, list_of_numbers) + hex_to_dec(num2, list_of_numbers)
 
-mul_dec = num1_dec * num2_dec
-sum_dec = num1_dec + num2_dec
+mul_hex = dec_to_hex(mul_dec, list_of_numbers)
+sum_hex = dec_to_hex(sum_dec, list_of_numbers)
 
-mul_hex = []
-
-for i in str(mul_dec):
-    if int(i) <= 16:
-        rem = int(i) % 16
-        if rem > 9:
-            rem = list_of_numbers.index(rem)
-        mul_hex.append(int(i) % 16)
-
-print(mul_dec)
-print(sum_dec)
-
+print('Произведение: ')
+print(mul_hex)
+print('Сумма: ')
+print(sum_hex)
