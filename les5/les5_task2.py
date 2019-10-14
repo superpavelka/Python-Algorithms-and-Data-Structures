@@ -19,7 +19,7 @@
 '''
 from collections import deque
 
-
+# десятичное число в шестнадцатиричное
 def dec_to_hex(dec, list_of_numbers):
     hex = []
     while True:
@@ -36,8 +36,9 @@ def dec_to_hex(dec, list_of_numbers):
             hex.reverse()
             return hex
 
-
+# шестнадцатиричное число в десятичное
 def hex_to_dec(hex, list_of_numbers):
+    # используем очередь, чтобы два раза не делать reverse
     hex_deq = deque(hex)
     dec = 0
     i = 0;
@@ -48,13 +49,18 @@ def hex_to_dec(hex, list_of_numbers):
 
 
 list_of_numbers = [str(i) for i in range(10)] + ['A', 'B', 'C', 'D', 'E', 'F']
-result = []
+#ввод чисел
 while True:
     try:
         num1 = list(input('Введите число 1: ').upper())
         for i, digit in enumerate(num1):
             if digit not in list_of_numbers:
                 raise TypeError
+        break
+    except TypeError:
+        print('Ошибка ввода!')
+while True:
+    try:
         num2 = list(input('Введите число 2: ').upper())
         for i, digit in enumerate(num2):
             if digit not in list_of_numbers:
@@ -66,10 +72,10 @@ print('Число 1: ')
 print(num1)
 print('Число 2: ')
 print(num2)
-
+# сумма и произведение в десятичной сс
 mul_dec = hex_to_dec(num1, list_of_numbers) * hex_to_dec(num2, list_of_numbers)
 sum_dec = hex_to_dec(num1, list_of_numbers) + hex_to_dec(num2, list_of_numbers)
-
+# сумма и произведение в шестнадцатиричной сс
 mul_hex = dec_to_hex(mul_dec, list_of_numbers)
 sum_hex = dec_to_hex(sum_dec, list_of_numbers)
 
