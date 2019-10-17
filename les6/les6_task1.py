@@ -73,7 +73,7 @@ def max_neg1(a_max_size):
         print(max_neg_elem_i)
         print('Max negative element:')
         print(max_neg_elem)
-        show_elements_size(inf, max_neg_elem, max_neg_elem_i, a, a_max_size)
+        show_elements_size(inf, max_neg_elem, max_neg_elem_i, a, a_max_size, item, i, elem)
         return (max_neg_elem_i, max_neg_elem)
 
 
@@ -102,7 +102,7 @@ def max_neg2(a_max_size):
         print(max_neg_elem_i)
         print('Max negative element:')
         print(max_neg_elem)
-        show_elements_size(inf, max_neg_elem, max_neg_elem_i, a, a_max_size)
+        show_elements_size(inf, max_neg_elem, max_neg_elem_i, a, a_max_size, item, i, elem)
         return (max_neg_elem_i, max_neg_elem)
 
 
@@ -131,51 +131,25 @@ def max_neg3(a_max_size):
             print(max_neg_elem_i)
             print('Max negative element:')
             print(max_neg_elem)
-            show_elements_size(max_neg_elem, max_neg_elem_i, a, b, a_max_size)
+            show_elements_size(max_neg_elem, max_neg_elem_i, a, b, a_max_size,item,i,elem)
             return (max_neg_elem_i, max_neg_elem)
     else:
         return None
 
-# Вычисление максимального элемента из всех отрицательных через два списка с использованием рекурсивной функции
-def max2(L):
-    if len(L)==1:
-        return L[0]
-    mid = (len(L))//2
-    left_L = [L[i] for i in range(0, mid)]
-    right_L = [L[i] for i in range(mid, len(L))]
-    a = max2(left_L)
-    b = max2(right_L)
-    #show_elements_size(L, mid, left_L, right_L, a,b)
-    return max(a,b)
-
-def main_max(a_max_size):
-    a = [random.randint(-1000, 1000) for i in range(0, a_max_size)]
-    print('+' * 12)
-    print('+ main_max +')
-    print('+' * 12)
-    print('Array: ')
-    for item in a:
-        print(f'{item:>5}', end='')
-    print()
-    for i in range(0, a_max_size):
-        print(f'{i:>5}', end='')
-    b = [value for value in a if value < 0]
-
-    if len(b) > 0:
-        max_neg_elem = max2(b)
-        for i,elem in enumerate(a):
-            if elem == max_neg_elem:
-                max_neg_elem_i = i
-                print()
-                print('Index:')
-                print(max_neg_elem_i)
-                print('Max negative element:')
-                print(max_neg_elem)
-                show_elements_size(max_neg_elem, max_neg_elem_i, a, b, a_max_size)
-        return (max_neg_elem_i, max_neg_elem)
-
 if __name__ == "__main__":
+    print(sys.version)
+    print(sys.platform)
     max_neg1(100)
     max_neg2(100)
     max_neg3(100)
-    main_max(100)
+
+'''
+Из результатов выполнения видно, что лучшей реализацией с точки зрения используемой статической памяти 
+является функция max_neg1 - Total size: 560 bytes. Следующая функция max_neg2 сильно проигрывает по памяти 
+(Total size: 2720 bytes) т.к. в ее реализации используется словарь вместо списка, который сам по себе 
+занимает 2620 bytes вместо 460 bytes на список из первой реализации. Третья реализация max_neg3 хуже чем
+max_neg1 но лучше чем max_neg2 т.к. использует два списка 460 bytes  и 268 bytes соответственно и в общем
+она использует 812 bytes памяти. Также можно обратить внимание, что переменные-счетчики цикла также 
+используют память и хранят последнее значение даже после выхода из цикла вплоть до завершения работы скрипта,
+поэтому их количество также влияет на используемую память.
+'''
