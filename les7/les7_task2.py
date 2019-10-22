@@ -9,16 +9,20 @@ def MergerSort(a):
         if left >= right: return None
         if m < left or right < m: return None
         t = left
-        for j in range(m + 1, right + 1):  # подгруппа 2
-            for i in range(t, j):  # цикл подгруппы 1
+        # подгруппа 2
+        for j in range(m + 1, right + 1):
+            # цикл подгруппы 1
+            for i in range(t, j):
                 if a[j] < a[i]:
                     r = a[j]
                     # итерационно переставляем элементы, чтобы упорядочить
                     for k in range(j, i, -1):
                         a[k] = a[k - 1]
                     a[i] = r
-                    t = i  # проджолжение вставки в группе 1
-                    break  # к следующему узлу из подгруппы 2
+                    # проджолжение вставки в группе 1
+                    t = i
+                    # к следующему узлу из подгруппы 2
+                    break
 
     if len(a) < 2: return None
     k = 1

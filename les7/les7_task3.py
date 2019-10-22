@@ -12,27 +12,27 @@ def quickselect(items, item_index):
 
     def select(lst, l, r, index):
 
-        # base case
+        # базовый случай
         if r == l:
             return lst[l]
 
-        # choose random pivot
+        # выбираем рандомный опорный элемент
         pivot_index = random.randint(l, r)
 
-        # move pivot to beginning of list
+        # двигаем опортный элемент в начало списка
         lst[l], lst[pivot_index] = lst[pivot_index], lst[l]
 
-        # partition
+        # перебор
         i = l
         for j in range(l+1, r+1):
             if lst[j] < lst[l]:
                 i += 1
                 lst[i], lst[j] = lst[j], lst[i]
 
-        # move pivot to correct location
+        # сдвиг опорного элемента в нужную позицию
         lst[i], lst[l] = lst[l], lst[i]
 
-        # recursively partition one side only
+        # рекурсивный перебор
         if index == i:
             return lst[i]
         elif index < i:
