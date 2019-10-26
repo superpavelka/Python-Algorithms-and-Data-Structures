@@ -25,27 +25,41 @@ def graph_init(size):
     return graph
 
 def DFS(graph, v):
-    # Mark all the vertices as not visited
+    # пометить все вершины непройденными
     visited = [False] * (len(graph))
 
-    # Call the recursive helper function
-    # to print DFS traversal
+    # вызываем рекурсивную функцию
+    # для печати обхода в глубину
     DFSUtil(graph,v, visited)
 
 def DFSUtil(graph, v, visited):
-     # Mark the current node as visited
-    # and print it
+   # помечает текущую вершину как пройденную
+   # и печатает его
     visited[v] = True
-    print(v, end=' ')
-     # Recur for all the vertices
-    # adjacent to this vertex
+    print(f'Зашли в {v} вершину. Она ведет в вершины: {graph[v]}', end='\n')
+    # повторить для всех вершин
+    # смежных с этой вершиной
     for i in graph[v]:
         if visited[i] == False:
             DFSUtil(graph,i, visited)
 
+def s_input_int(message):
+    while True:
+
+        try:
+            val = int(input(message))
+        except ValueError:
+            print('Ошибка ввода!')
+            continue
+        return  val
 
 if __name__ == "__main__":
-    g = graph_init(5)
+    n = s_input_int('Введите количество вершин: ')
+    g = graph_init(n)
     print(g)
-    DFS(g,0)
+    v = s_input_int('Введите вершину, с которой начинаем обход(счет вершин идет с нуля): ')
+    if v <= n - 1:
+        DFS(g,v)
+    else:
+        print('Ошибка нет такой вершины!')
 
